@@ -163,6 +163,10 @@ class Answerfile:
             disk = normalize_disk(getText(nodes[0]))
             results['primary-disk'] = disk
 
+            results['fs-type'] = getStrAttribute(nodes[0], ['fs-type'], default=default_fs_type)
+            if results['fs-type'] not in ['ext3', 'ext4']:
+                raise AnswerfileException("<primary-disk> fs-type attribute must be one of 'ext3' or 'ext4'")
+
         return results
 
     def parseRestore(self):
@@ -312,6 +316,10 @@ class Answerfile:
         inc_primary = getBoolAttribute(node, ['guest-storage', 'gueststorage'],
                                        default=True)
         results['sr-at-end'] = getBoolAttribute(node, ['sr-at-end'], default=True)
+
+        results['fs-type'] = getStrAttribute(node, ['fs-type'], default=default_fs_type)
+        if results['fs-type'] not in ['ext3', 'ext4']:
+            raise AnswerfileException("<primary-disk> fs-type attribute must be one of 'ext3' or 'ext4'")
 
         # Guest disk(s) (Local SR)
         guest_disks = set()

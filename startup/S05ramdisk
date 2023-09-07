@@ -54,7 +54,7 @@ start()
 
         # mount the source
         mkdir /tmp/src
-        for fs in iso9660 vfat ext3; do
+        for fs in iso9660 vfat ext3 ext4; do
           mount -t $fs -o ro $src /tmp/src 2>/dev/null && break
         done
         if grep -q ' /tmp/src ' /proc/mounts; then 

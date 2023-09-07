@@ -69,10 +69,19 @@ def restoreFromBackup(backup, progress=lambda x: ()):
                 "to restore please use a version of the installer that matches the backup partition")
 
         # format the restore partition(s):
+        fs_type = diskutil.get_fs_type(backup_partition)
         try:
-            util.mkfs(constants.rootfs_type, restore_partition)
+            util.mkfs(fs_type, restore_partition)
         except Exception as e:
-            raise RuntimeError("Failed to create root filesystem: %s" % e)
+            raise RuntimeError("Failed to create root filesystem (%s): %s" % (fs_type, e))
+
+        # format the logs partition only if the fs_type is changing
+        logs_partition = partitionDevice(disk, logs_partnum)
+        if fs_type != diskutil.get_fs_type(logs_partition):
+            try:
+                util.mkfs(fs_type, logs_partition)
+            except Exception as e:
+                raise RuntimeError("Failed to format logs filesystem (%s): %s" % (fs_type, e))
 
         if efi_boot:
             try:

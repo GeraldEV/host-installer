@@ -798,3 +798,9 @@ def parentdev_from_devpath(devpath):
 
     # If there is no parent of the parent cannot be determined...
     return None
+
+
+def get_fs_type(partition):
+    _, out = util.runCmd2(["lsblk", "-o", "FSTYPE", "-n", partition], with_stdout=True)
+    return out.strip()
+

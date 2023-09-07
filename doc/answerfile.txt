@@ -190,6 +190,12 @@ Format of 'source' and 'driver-source'
 
         Default: if-utility
 
+      fs-type="ext3|ext4"
+
+        Specifies which file format to use for the root & logs partitions.
+
+        Default: ext3
+
 
   <guest-disks>
     <guest-disk>dev</guest-disk>*
@@ -317,6 +323,15 @@ Upgrade Elements
 
     Specifies the target disk to migrate a flash-based OEM
     installation to. (5.6 & 5.6 FP1)
+
+    Optional attributes:
+
+      fs-type="ext3|ext4"
+
+        Specifies which file format to use for the root & logs partitions.
+
+        Default: ext3
+
 
 Restore Elements
 ----------------

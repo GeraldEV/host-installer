@@ -433,7 +433,7 @@ class ExistingRetailInstallation(ExistingInstallation):
         opts = None
         if ro:
             opts = ['ro']
-        self.root_fs = util.TempMount(self.root_device, 'root', opts, 'ext3', boot_device=boot_device)
+        self.root_fs = util.TempMount(self.root_device, 'root', opts, diskutil.get_fs_type(self.root_device), boot_device=boot_device)
 
     def unmount_root(self):
         if self.root_fs:
@@ -533,7 +533,7 @@ def findXenSourceBackups():
     for p in partitions:
         b = None
         try:
-            b = util.TempMount(p, 'backup-', ['ro'], 'ext3')
+            b = util.TempMount(p, 'backup-', ['ro'], diskutil.get_fs_type(p))
             if os.path.exists(os.path.join(b.mount_point, '.xen-backup-partition')):
                 backup = XenServerBackup(p, b.mount_point)
                 logger.log("Found a backup: %s" % (repr(backup),))
