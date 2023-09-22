@@ -194,7 +194,7 @@ Format of 'source' and 'driver-source'
 
         Specifies which file format to use for the root & logs partitions.
 
-        Default: ext3
+        Default: ext4
 
 
   <guest-disks>
@@ -330,7 +330,7 @@ Upgrade Elements
 
         Specifies which file format to use for the root & logs partitions.
 
-        Default: ext3
+        Default: ext4
 
 
 Restore Elements
