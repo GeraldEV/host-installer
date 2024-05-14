@@ -378,6 +378,7 @@ class UpdateYumRepository(YumRepositoryWithInfo):
             self._identifier = dom.documentElement.getAttribute('name-label')
             self._targets = [self._controlpkg, 'update-' + self._identifier]
             self._key = dom.documentElement.getAttribute('key')
+            logger.log("GERALD: Found update.xml key %s" % self._key)
         except Exception as e:
             accessor.finish()
             logger.logException(e)
@@ -390,6 +391,7 @@ class UpdateYumRepository(YumRepositoryWithInfo):
         return self._identifier
 
     def _repo_config(self):
+        logger.log("GERALD: Fetched repo_config for Update/Driver repo")
         return """
 gpgcheck=1
 gpgkey=%s
